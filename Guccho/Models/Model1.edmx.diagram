@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="21b5ad57741449ed9e14bfa2284f532c" Name="Diagram1">
-        <EntityTypeShape EntityType="GucchoModel.Admin" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+      <Diagram DiagramId="4de6d025d2eb452ba6d9dc88cc1b160f" Name="Diagram1">
+        <EntityTypeShape EntityType="GucchoModel.Admin" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GucchoModel.Branch" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="GucchoModel.Cours" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GucchoModel.Organization" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />

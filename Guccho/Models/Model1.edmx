@@ -12,6 +12,7 @@
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="phonenumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Branches">
@@ -132,6 +133,7 @@ error 6004: The table 'Guccho.dbo.Students_CoursesJOIN' is referenced by a relat
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phonenumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK_USERNAME" FromRole="Admin" ToRole="Organization" />
         </EntityType>
@@ -232,6 +234,7 @@ error 6004: The table 'Guccho.dbo.Students_CoursesJOIN' is referenced by a relat
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>

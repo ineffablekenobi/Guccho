@@ -115,6 +115,13 @@ namespace Guccho.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SignIn()
+        {
+ 
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

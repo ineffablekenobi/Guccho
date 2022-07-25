@@ -30,7 +30,13 @@ namespace Guccho.Models
         [Required(ErrorMessage = "Please give a valid username")]
         [DisplayName("User Name")]
         public string username { get; set; }
-        
+
+        [Required(ErrorMessage = "Password must be at least 8 characters long")]
+        [DisplayName("Password")]
+        [StringLength(100, MinimumLength = 8)]
+        [DataType(DataType.Password)]
+        public string password { get; set; }
+
         [Required(ErrorMessage = "Please enter a valid phone number")]
         [DisplayName("Phone Number")]
         [DataType(DataType.PhoneNumber)]
