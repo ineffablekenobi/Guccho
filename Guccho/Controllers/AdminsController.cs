@@ -46,7 +46,7 @@ namespace Guccho.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,username,phonenumber,Address")] Admin admin)
+        public ActionResult Create([Bind(Include = "name,username,phonenumber,password,Address")] Admin admin)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Guccho.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,username,phonenumber,Address")] Admin admin)
+        public ActionResult Edit([Bind(Include = "name,username,phonenumber,password,Address")] Admin admin)
         {
             if (ModelState.IsValid)
             {
@@ -114,13 +114,6 @@ namespace Guccho.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        public ActionResult SignIn()
-        {
- 
-            return View();
-        }
-
 
         protected override void Dispose(bool disposing)
         {
