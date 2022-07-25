@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GucchoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phonenumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="bID" />
+          </Key>
+          <Property Name="phoneNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="bID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fk_oID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Guccho.dbo.Branches_CoursesJOIN' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Branches_CoursesJOIN">
+          <Property Name="fk_bID" Type="int" />
+          <Property Name="fk_cID" Type="int" />
+        </EntityType>-->
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="cId" />
+          </Key>
+          <Property Name="cId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="duration" Type="varchar" MaxLength="100" />
+          <Property Name="level" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="oID" />
+          </Key>
+          <Property Name="oID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phoneNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fk_userName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="sName" />
+          </Key>
+          <Property Name="fullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phoneNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="interests" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Guccho.dbo.Students_CoursesJOIN' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Students_CoursesJOIN">
+          <Property Name="fk_sName" Type="varchar" MaxLength="100" />
+          <Property Name="fk_cID" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+error 6004: The table 'Guccho.dbo.Branches_CoursesJOIN' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_BID" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'Guccho.dbo.Branches_CoursesJOIN' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_CID" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'Guccho.dbo.Students_CoursesJOIN' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_CID_1" />-->
+        <Association Name="FK_OID">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="Branches" Type="Self.Branches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="oID" />
+            </Principal>
+            <Dependent Role="Branches">
+              <PropertyRef Name="fk_oID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'Guccho.dbo.Students_CoursesJOIN' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_SNAME" />-->
+        <Association Name="FK_USERNAME">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Organization" Type="Self.Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Organization">
+              <PropertyRef Name="fk_userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GucchoModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OID" Association="Self.FK_OID">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="Branches" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERNAME" Association="Self.FK_USERNAME">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Organization" EntitySet="Organization" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GucchoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phonenumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Organizations" Relationship="Self.FK_USERNAME" FromRole="Admin" ToRole="Organization" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="bID" />
+          </Key>
+          <Property Name="phoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fk_oID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Organization" Relationship="Self.FK_OID" FromRole="Branches" ToRole="Organization" />
+        </EntityType>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="cId" />
+          </Key>
+          <Property Name="cId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="oID" />
+          </Key>
+          <Property Name="oID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fk_userName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_USERNAME" FromRole="Organization" ToRole="Admin" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK_OID" FromRole="Organization" ToRole="Branches" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="sName" />
+          </Key>
+          <Property Name="fullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="interests" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_USERNAME">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Organization" Type="Self.Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="Organization">
+              <PropertyRef Name="fk_userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OID">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="Branches" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="oID" />
+            </Principal>
+            <Dependent Role="Branches">
+              <PropertyRef Name="fk_oID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GucchoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Organizations" EntityType="Self.Organization" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_USERNAME" Association="Self.FK_USERNAME">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Organization" EntitySet="Organizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OID" Association="Self.FK_OID">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="Branches" EntitySet="Branches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GucchoModelStoreContainer" CdmEntityContainer="GucchoEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="GucchoModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="GucchoModel.Branch">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="bID" ColumnName="bID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="fk_oID" ColumnName="fk_oID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="GucchoModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="cId" ColumnName="cId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="level" ColumnName="level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="GucchoModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="oID" ColumnName="oID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fk_userName" ColumnName="fk_userName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="GucchoModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="interests" ColumnName="interests" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
