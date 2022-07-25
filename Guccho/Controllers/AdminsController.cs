@@ -115,6 +115,41 @@ namespace Guccho.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SignIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignIn([Bind(Include = "username,password")] Admin admin)
+        {
+            Admin result = db.Admins.SingleOrDefault(user => user.username == admin.username);
+            if(result != null)
+            {
+                if (result.password.Equals(admin.password))
+                {
+                    return RedirectToAction("Dashboard/" + result.username);
+                }
+                
+            }
+            return View(result);
+        }
+
+        public ActionResult Dashboard(String id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Admin admin = db.Admins.Find(id);
+            if (admin == null)
+            {
+                return HttpNotFound();
+            }
+            return View(admin);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
