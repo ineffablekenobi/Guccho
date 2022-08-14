@@ -38,7 +38,63 @@
 
     </dl>
 </div>
-<p class="text-capitalize text-center"><b>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.username })
-</b>
+
+
+
+<p class="text-capitalize text-center">
+    <b>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.username })
+    </b>
 </p>
+
+<h2 class="text-center py-5 text-success">Organizations</h2>
+
+<table class="table pd-5">
+
+    <tr>
+        <th>
+            Organizations Name
+        </th>
+        <th>
+            Organization Address
+        </th>
+        <th>
+            Organization PhoneNumber
+        </th>
+        <th>
+            Organization Mail
+        </th>
+        <th>
+            Organization admin
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model.Organizations)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.oID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.oID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.oID })
+            </td>
+        </tr>
+    }
+
+</table>

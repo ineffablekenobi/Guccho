@@ -129,6 +129,11 @@ namespace Guccho.Controllers
             {
                 if (result.password.Equals(admin.password))
                 {
+                    
+                    HttpCookie cookie = new HttpCookie("name");
+                    cookie.Values["name"] = result.username;
+                    cookie.Expires = DateTime.Now.AddMinutes(10);// update this later
+                    Response.Cookies.Add(cookie);
                     return RedirectToAction("Dashboard/" + result.username);
                 }
                 
@@ -143,6 +148,15 @@ namespace Guccho.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Admin admin = db.Admins.Find(id);
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+            if (name.Equals("undefined"))
+            {
+                return View();
+            }
+
+            var lst = db.Organizations.Where(val => val.fk_userName.Contains(name)).ToList<Organization>();
+            
             if (admin == null)
             {
                 return HttpNotFound();

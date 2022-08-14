@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,9 +232,15 @@
     <Content Include="Views\Admins\Index.cshtml" />
     <Content Include="Views\Admins\SignIn.cshtml" />
     <Content Include="Views\Admins\Dashboard.cshtml" />
+    <Content Include="Views\Organizations\Create.cshtml" />
+    <Content Include="Views\Organizations\Delete.cshtml" />
+    <Content Include="Views\Organizations\Details.cshtml" />
+    <Content Include="Views\Organizations\Edit.cshtml" />
+    <Content Include="Views\Organizations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
