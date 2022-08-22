@@ -132,13 +132,45 @@ namespace Guccho.Controllers
                     
                     HttpCookie cookie = new HttpCookie("name");
                     cookie.Values["name"] = result.username;
-                    cookie.Expires = DateTime.Now.AddMinutes(10);// update this later
+
+                    HttpCookie role = new HttpCookie("access");
+                    role.Values["access"] = "admin";
+
+                    cookie.Expires = DateTime.Now.AddMinutes(10000);// update this later
+                    role.Expires = DateTime.Now.AddMinutes(10000);
                     Response.Cookies.Add(cookie);
+                    Response.Cookies.Add(role);
                     return RedirectToAction("Dashboard/" + result.username);
                 }
                 
             }
             return View(result);
+        }
+
+        public bool grantAdminAccess(Admin admin)
+        {
+            if (admin == null)
+            {
+                return false;
+            }
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+
+            if (name.Equals("undefined"))
+            {
+                return false;
+            }
+
+            HttpCookie access = Request.Cookies["access"];
+            string role = username != null ? access.Value.Split('=')[1] : "undefined";
+
+            if (role.Equals("undefined"))
+            {
+                return false;
+            }
+
+            return true;
+
         }
 
         public ActionResult Dashboard(String id)
@@ -148,14 +180,13 @@ namespace Guccho.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Admin admin = db.Admins.Find(id);
-            HttpCookie username = Request.Cookies["name"];
-            string name = username != null ? username.Value.Split('=')[1] : "undefined";
-            if (name.Equals("undefined"))
-            {
-                return View();
-            }
 
-            var lst = db.Organizations.Where(val => val.fk_userName.Contains(name)).ToList<Organization>();
+            if (!grantAdminAccess(admin))
+            {
+                return HttpNotFound();
+            }
+            
+            var lst = db.Organizations.Where(val => val.fk_userName.Contains(admin.username)).ToList<Organization>();
             
             if (admin == null)
             {
