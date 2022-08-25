@@ -117,7 +117,28 @@ namespace Guccho.Controllers
 
         public ActionResult SignIn()
         {
+
+            if (isLoggedIn())
+            {
+                HttpCookie username = Request.Cookies["name"];
+                string name = username != null ? username.Value.Split('=')[1] : "undefined";
+                return RedirectToAction("Dashboard/" + name);
+            }
+            
             return View();
+        }
+
+        public ActionResult SignOut()
+        {
+
+            HttpCookie username = Request.Cookies["name"];
+            username.Expires = DateTime.Now.AddDays(-1);
+            HttpCookie role = Request.Cookies["access"];
+            role.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(username);
+            Response.Cookies.Add(role);
+
+            return RedirectToAction("SignIn");
         }
 
         [HttpPost]
@@ -147,31 +168,7 @@ namespace Guccho.Controllers
             return View(result);
         }
 
-        public bool grantAdminAccess(Admin admin)
-        {
-            if (admin == null)
-            {
-                return false;
-            }
-            HttpCookie username = Request.Cookies["name"];
-            string name = username != null ? username.Value.Split('=')[1] : "undefined";
-
-            if (name.Equals("undefined"))
-            {
-                return false;
-            }
-
-            HttpCookie access = Request.Cookies["access"];
-            string role = username != null ? access.Value.Split('=')[1] : "undefined";
-
-            if (role.Equals("undefined"))
-            {
-                return false;
-            }
-
-            return true;
-
-        }
+       
 
         public ActionResult Dashboard(String id)
         {
@@ -203,5 +200,52 @@ namespace Guccho.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        // utility classes
+        public bool grantAdminAccess(Admin admin)
+        {
+            if (admin == null)
+            {
+                return false;
+            }
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+
+            if (name.Equals("undefined"))
+            {
+                return false;
+            }
+
+            HttpCookie access = Request.Cookies["access"];
+            string role = access != null ? access.Value.Split('=')[1] : "undefined";
+
+            if (role.Equals("undefined"))
+            {
+                return false;
+            }
+
+            
+
+            return true;
+
+        }
+
+        public bool isLoggedIn()
+        {
+            HttpCookie access = Request.Cookies["access"];
+            string role = access != null ? access.Value.Split('=')[1] : "undefined";
+
+            if (!role.Equals("admin"))
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
+
     }
 }
