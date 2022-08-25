@@ -48,13 +48,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.fk_userName, "fk_userName", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("fk_userName", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.fk_userName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+  
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

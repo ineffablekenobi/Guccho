@@ -221,7 +221,7 @@ namespace Guccho.Controllers
             HttpCookie access = Request.Cookies["access"];
             string role = access != null ? access.Value.Split('=')[1] : "undefined";
 
-            if (role.Equals("undefined"))
+            if (!role.Equals("admin"))
             {
                 return false;
             }
@@ -237,7 +237,7 @@ namespace Guccho.Controllers
             HttpCookie access = Request.Cookies["access"];
             string role = access != null ? access.Value.Split('=')[1] : "undefined";
 
-            if (!role.Equals("admin"))
+            if (role.Equals("undefined"))
             {
                 return false;
             }

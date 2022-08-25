@@ -11,39 +11,14 @@ namespace Guccho.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Student
     {
-        [Required(ErrorMessage = "Please enter your full name")]
-        [DisplayName("Full Name")]
         public string fullName { get; set; }
-
-        [Required(ErrorMessage = "Password must be at least 8 characters long")]
-        [DisplayName("Password")]
-        [StringLength(100, MinimumLength = 8)]
-        [DataType(DataType.Password)]
         public string password { get; set; }
-
-
-        [Required(ErrorMessage = "Please enter a valid phone number")]
-        [DisplayName("Phone Number")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^(\d{11})$", ErrorMessage = "All digits and Length must be 11")]
         public string phoneNumber { get; set; }
-
-        [DisplayName("Interests")]
-        [DataType(DataType.MultilineText)]
         public string interests { get; set; }
-
-        [Required(ErrorMessage = "Please enter your email address")]
-        [DataType(DataType.EmailAddress)]
-        [DisplayName("Email")]
         public string email { get; set; }
-
-        [Required(ErrorMessage = "Please enter your username")]
-        [DisplayName("Username")]
         public string sName { get; set; }
     }
 }

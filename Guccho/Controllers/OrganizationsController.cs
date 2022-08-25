@@ -48,8 +48,10 @@ namespace Guccho.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "oID,name,address,phoneNumber,email,fk_userName")] Organization organization)
+        public ActionResult Create([Bind(Include = "oID,name,address,phoneNumber,email")] Organization organization)
         {
+            organization.fk_userName = getCurrentlyLoggedInUser();
+
             if (ModelState.IsValid)
             {
                 db.Organizations.Add(organization);
@@ -73,7 +75,9 @@ namespace Guccho.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.fk_userName = new SelectList(db.Admins, "username", "name", organization.fk_userName);
+            SelectList selectListItems = new SelectList(db.Admins, "username", "name", organization.fk_userName);
+            
+            ViewBag.fk_userName = selectListItems;
             return View(organization);
         }
 
@@ -82,8 +86,9 @@ namespace Guccho.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "oID,name,address,phoneNumber,email,fk_userName")] Organization organization)
+        public ActionResult Edit([Bind(Include = "oID,name,address,phoneNumber,email")] Organization organization)
         {
+            organization.fk_userName = getCurrentlyLoggedInUser();
             if (ModelState.IsValid)
             {
                 db.Entry(organization).State = EntityState.Modified;
@@ -128,5 +133,17 @@ namespace Guccho.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        //utility here
+        public String getCurrentlyLoggedInUser()
+        {
+            // returns the username of currently logged in user
+
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+            return name;
+        }
+
     }
 }

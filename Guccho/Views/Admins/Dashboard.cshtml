@@ -90,9 +90,9 @@
                 @Html.DisplayFor(modelItem => item.Admin.name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.oID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.oID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.oID })
+                @Html.ActionLink("Edit", "Edit", "Organizations", new { id = item.oID }, null) |
+                @Html.ActionLink("Details", "Details", "Organizations", new { id = item.oID }, null) |
+                @Html.ActionLink("Delete", "Delete", "Organizations", new { id = item.oID },null)
             </td>
         </tr>
     }
