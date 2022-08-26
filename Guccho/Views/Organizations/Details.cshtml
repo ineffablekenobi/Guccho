@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Welcome to @Model.name</h2>
 
 <div>
     <h4>Organization</h4>
@@ -54,6 +54,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.oID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit this organization", "Edit", new { id = Model.oID })
 </p>
+
+<div>
+    @Html.ActionLink("Create Branch", "Create", "Branches")
+</div>
+

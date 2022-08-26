@@ -39,7 +39,9 @@ namespace Guccho.Controllers
         // GET: Branches/Create
         public ActionResult Create()
         {
-            ViewBag.fk_oID = new SelectList(db.Organizations, "oID", "name");
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+            ViewBag.fk_oID = new SelectList(db.Organizations.Where(x => x.fk_userName.Equals(name)), "oID", "name");
             return View();
         }
 
@@ -50,14 +52,16 @@ namespace Guccho.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "phoneNumber,email,bID,name,address,fk_oID")] Branch branch)
         {
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
             if (ModelState.IsValid)
             {
                 db.Branches.Add(branch);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard","Admins",new { id = name});
             }
-
-            ViewBag.fk_oID = new SelectList(db.Organizations, "oID", "name", branch.fk_oID);
+            
+            ViewBag.fk_oID = new SelectList(db.Organizations.Where(x => x.fk_userName.Equals(name)), "oID", "name");
             return View(branch);
         }
 
@@ -73,7 +77,10 @@ namespace Guccho.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.fk_oID = new SelectList(db.Organizations, "oID", "name", branch.fk_oID);
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+            ViewBag.fk_oID = new SelectList(db.Organizations.Where(x => x.fk_userName.Equals(name)), "oID", "name");
+
             return View(branch);
         }
 
@@ -84,13 +91,17 @@ namespace Guccho.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "phoneNumber,email,bID,name,address,fk_oID")] Branch branch)
         {
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+
             if (ModelState.IsValid)
             {
                 db.Entry(branch).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Admins", new { id = name });
             }
-            ViewBag.fk_oID = new SelectList(db.Organizations, "oID", "name", branch.fk_oID);
+            
+            ViewBag.fk_oID = new SelectList(db.Organizations.Where(x => x.fk_userName.Equals(name)), "oID", "name");
             return View(branch);
         }
 
@@ -114,10 +125,13 @@ namespace Guccho.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+
             Branch branch = db.Branches.Find(id);
             db.Branches.Remove(branch);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Dashboard", "Admins", new { id = name });
         }
 
         protected override void Dispose(bool disposing)
