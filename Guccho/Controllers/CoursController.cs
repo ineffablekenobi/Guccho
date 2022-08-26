@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -35,9 +37,14 @@ namespace Guccho.Controllers
             return View(cours);
         }
 
-        // GET: Cours/Create
-        public ActionResult Create()
+        // GET: Cours/Create/1
+        // here id is some branch id
+        public ActionResult Create(int? id)
         {
+            HttpCookie cookie = new HttpCookie("bid");
+            cookie.Values["bid"] = id+"";
+            cookie.Expires = DateTime.Now.AddMinutes(10000);
+            Response.Cookies.Add(cookie);
             return View();
         }
 
@@ -48,10 +55,35 @@ namespace Guccho.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cId,name,code,duration,level")] Cours cours)
         {
+
+            HttpCookie bid = Request.Cookies["bid"];
+            string bidVal = bid != null ? bid.Value.Split('=')[1] : "undefined";
+
+            if (bidVal.Equals("undefined"))
+            {
+                return HttpNotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 db.Courses.Add(cours);
                 db.SaveChanges();
+                int cId = cours.cId;
+
+
+                string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+                SqlConnection conn = new SqlConnection(connStr);
+                conn.Open();
+                string sql = "INSERT INTO Branches_CoursesJOIN(fk_bID, fk_cID) VALUES(";
+                sql += bidVal;
+                sql += ",";
+                sql += cId;
+                sql += ");";
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+
                 return RedirectToAction("Index");
             }
 

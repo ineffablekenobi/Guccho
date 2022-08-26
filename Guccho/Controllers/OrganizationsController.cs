@@ -29,6 +29,13 @@ namespace Guccho.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Organization organization = db.Organizations.Find(id);
+
+            // security
+            if(organization == null || organization.fk_userName != getCurrentlyLoggedInUser())
+            {
+                return HttpNotFound();
+            }
+
             if (organization == null)
             {
                 return HttpNotFound();
@@ -71,6 +78,12 @@ namespace Guccho.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Organization organization = db.Organizations.Find(id);
+            //security
+            if (organization == null || organization.fk_userName != getCurrentlyLoggedInUser())
+            {
+                return HttpNotFound();
+            }
+
             if (organization == null)
             {
                 return HttpNotFound();
@@ -107,6 +120,13 @@ namespace Guccho.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Organization organization = db.Organizations.Find(id);
+
+            // security
+            if (organization == null || organization.fk_userName != getCurrentlyLoggedInUser())
+            {
+                return HttpNotFound();
+            }
+
             if (organization == null)
             {
                 return HttpNotFound();
