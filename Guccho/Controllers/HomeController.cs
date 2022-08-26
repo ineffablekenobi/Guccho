@@ -10,6 +10,21 @@ namespace Guccho.Controllers
     {
         public ActionResult Index()
         {
+            HttpCookie access = Request.Cookies["access"];
+            string role = access != null ? access.Value.Split('=')[1] : "undefined";
+
+            if (!role.Equals("undefined"))
+            {
+                if (role.Equals("admin"))
+                {
+                    return RedirectToAction("SignIn", "Admins");
+                }
+                else
+                {
+                    return RedirectToAction("SignIn", "Students");
+                }
+            }
+            
             return View();
         }
 
@@ -26,5 +41,8 @@ namespace Guccho.Controllers
 
             return View();
         }
+
+      
+
     }
 }

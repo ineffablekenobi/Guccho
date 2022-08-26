@@ -15,11 +15,30 @@ namespace Guccho.Controllers
         private GucchoEntities db = new GucchoEntities();
 
         // GET: Branches
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+
             var branches = db.Branches.Include(b => b.Organization);
-            return View(branches.ToList());
+            var branchList = branches.ToList();
+
+            if (!(id.HasValue))
+            {
+                return View(branchList);
+            }
+
+            List<Branch> branches1 = new List<Branch>();
+
+            foreach (var branch in branchList)
+            {
+                if (branch.fk_oID == id)
+                {
+                    branches1.Add(branch);
+                }
+            }
+
+            return View(branches1);
         }
+
 
         // GET: Branches/Details/5
         public ActionResult Details(int? id)
@@ -39,6 +58,12 @@ namespace Guccho.Controllers
         // GET: Branches/Create
         public ActionResult Create()
         {
+            // security
+            if (!branchModAccess())
+            {
+                return HttpNotFound();
+            }
+
             HttpCookie username = Request.Cookies["name"];
             string name = username != null ? username.Value.Split('=')[1] : "undefined";
             ViewBag.fk_oID = new SelectList(db.Organizations.Where(x => x.fk_userName.Equals(name)), "oID", "name");
@@ -68,6 +93,13 @@ namespace Guccho.Controllers
         // GET: Branches/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            // security
+            if (!branchModAccess())
+            {
+                return HttpNotFound();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -108,6 +140,13 @@ namespace Guccho.Controllers
         // GET: Branches/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            // security
+            if (!branchModAccess())
+            {
+                return HttpNotFound();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -142,5 +181,19 @@ namespace Guccho.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public bool branchModAccess()
+        {
+            HttpCookie userRole = Request.Cookies["access"];
+            string role = userRole != null ? userRole.Value.Split('=')[1] : "undefined";
+
+            if (!role.Equals("admin"))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

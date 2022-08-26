@@ -57,6 +57,10 @@
     @Html.ActionLink("Edit this organization", "Edit", new { id = Model.oID })
 </p>
 
+<p>
+    @Html.ActionLink("Branches", "Index", "Branches", new { id = Model.oID }, null)
+</p>
+
 <div>
     @Html.ActionLink("Create Branch", "Create", "Branches")
 </div>
