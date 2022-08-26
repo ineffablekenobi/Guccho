@@ -11,14 +11,41 @@ namespace Guccho.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Student
     {
+        [DisplayName("Full Name")]
+        [RegularExpression(@"^[a-zA-Z ]*$", ErrorMessage = "Must not contain any digit")]
+        [DataType(DataType.Text)]
+        [Required]
         public string fullName { get; set; }
+        
+        [DisplayName("Password")]
+        [MinLength(8, ErrorMessage = "Minimum password length must be 8")]
+        [DataType(DataType.Password)]
+        [Required]
         public string password { get; set; }
+
+        [DisplayName("Phone Number")]
+        [RegularExpression(@"(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$", ErrorMessage = "Enter a valid phone number")]
+        [DataType(DataType.PhoneNumber)]
         public string phoneNumber { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [DisplayName("Interests")]
         public string interests { get; set; }
+
+        [RegularExpression(@"[a-z0-9]+@[a-z]+\.[a-z]{2,3}", ErrorMessage ="Enter a valid email")]
+        [DisplayName("Email")]
+        [DataType(DataType.EmailAddress)]
+        [Required]
         public string email { get; set; }
+
+        [DisplayName("Username")]
+        [RegularExpression(@"/^\S*$", ErrorMessage = "Must not contain any white space")]
+        [Required]
         public string sName { get; set; }
     }
 }
