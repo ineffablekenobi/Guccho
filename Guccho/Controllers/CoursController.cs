@@ -19,6 +19,45 @@ namespace Guccho.Controllers
         // GET: Cours
         public ActionResult Index()
         {
+
+
+            List<long> cidList = new List<long>();
+            HttpCookie userRole = Request.Cookies["access"];
+            string role = userRole != null ? userRole.Value.Split('=')[1] : "undefined";
+
+            if(role == "admin")
+            {
+                ViewBag.cidList = cidList;
+                return View(db.Courses.ToList());
+            }
+
+
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+
+
+            string query = "SELECT fk_cID from Students_CoursesJOIN where fk_sName = '" + name + "';";
+
+            string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                //This "for" iterates through each column of the current row!
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    cidList.Add(Convert.ToInt64(reader.GetValue(i).ToString()));
+                }
+            }
+
+            ViewBag.cidList = cidList;
+
+            
+
             return View(db.Courses.ToList());
         }
 

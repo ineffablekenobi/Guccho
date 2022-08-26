@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Guccho.Models.Cours>
 
 @{
+
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpCookie userRole = Request.Cookies["access"];
+    string role = userRole != null ? userRole.Value.Split('=')[1] : "undefined";
+
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+<h3> Courses for you</h3>
+
 <table class="table">
     <tr>
         <th>
@@ -28,6 +31,12 @@
     </tr>
 
 @foreach (var item in Model) {
+
+    if (ViewBag.cidList.Contains(item.cId))
+    {
+        continue;
+    }
+
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.name)
@@ -42,11 +51,73 @@
             @Html.DisplayFor(modelItem => item.level)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.cId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.cId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.cId })
+
+            @if (role.Equals("student"))
+            {
+                <div>
+                    @Html.ActionLink("Details", "Details", new { id = item.cId }) |
+                    @Html.ActionLink("Enroll", "Enroll", "Students", new { id = item.cId }, null)
+                </div>
+            }
+            else
+            {
+                <div>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.cId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.cId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.cId })
+                </div>
+
+            }
         </td>
     </tr>
 }
+
+</table>
+
+<h3>Your Courses</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.level)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        if (!ViewBag.cidList.Contains(item.cId))
+        {
+            continue;
+        }
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.level)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.cId })
+            </td>
+        </tr>
+    }
 
 </table>

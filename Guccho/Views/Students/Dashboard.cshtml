@@ -7,10 +7,10 @@
 
 <h2 class="text-center text-success">Dashboard</h2>
 
-<h2>Details</h2>
+<h2>Welcome @Model.fullName</h2>
 
 <div>
-    <h4>Student</h4>
+    <h4>Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -51,6 +51,10 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.sName })
 </p>
 
+
+<div>
+    @Html.ActionLink("See available Courses", "Index", "Cours")
+</div>
 
 <div>
     @Html.ActionLink("Sign out", "SignOut", "Students")

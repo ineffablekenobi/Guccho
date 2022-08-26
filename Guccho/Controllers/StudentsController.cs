@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Guccho.Models;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace Guccho.Controllers
 {
@@ -212,6 +213,7 @@ namespace Guccho.Controllers
             }
 
 
+
             ViewBag.details = str;
 
             conn.Close();
@@ -227,6 +229,30 @@ namespace Guccho.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult enroll(int? id)
+        {
+
+            HttpCookie username = Request.Cookies["name"];
+            string name = username != null ? username.Value.Split('=')[1] : "undefined";
+
+            Student student = db.Students.Find(name);
+
+            string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            string sql = "INSERT INTO Students_CoursesJOIN(fk_sName, fk_cID) VALUES('";
+            sql += name;
+            sql += "',";
+            sql += id;
+            sql += ");";
+
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+            return RedirectToAction("SignIn");
         }
 
 
