@@ -11,14 +11,34 @@ namespace Guccho.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Branch
     {
+        [DisplayName("Phone Number")]
+        [RegularExpression(@"(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$", ErrorMessage = "Enter a valid phone number")]
+        [DataType(DataType.PhoneNumber)]
         public string phoneNumber { get; set; }
+        
+        [RegularExpression(@"[a-z0-9]+@[a-z]+\.[a-z]{2,3}", ErrorMessage = "Enter a valid email")]
+        [DisplayName("Email")]
+        [DataType(DataType.EmailAddress)]
+        [Required]
         public string email { get; set; }
         public int bID { get; set; }
+
+        [DisplayName("Branch Name")]
+        [RegularExpression(@"^[a-zA-Z ]*$", ErrorMessage = "Must not contain any digit")]
+        [DataType(DataType.Text)]
+        [Required]
         public string name { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [DisplayName("Address")]
         public string address { get; set; }
+
+        [DisplayName("Organization")]
         public int fk_oID { get; set; }
     
         public virtual Organization Organization { get; set; }

@@ -2,7 +2,7 @@
 
 @{
 
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Courses";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpCookie userRole = Request.Cookies["access"];
     string role = userRole != null ? userRole.Value.Split('=')[1] : "undefined";

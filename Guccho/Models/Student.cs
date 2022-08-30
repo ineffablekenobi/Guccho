@@ -44,7 +44,7 @@ namespace Guccho.Models
         public string email { get; set; }
 
         [DisplayName("Username")]
-        [RegularExpression(@"/^\S*$", ErrorMessage = "Must not contain any white space")]
+        [RegularExpression(@"^\w[!-}]*$", ErrorMessage = "Invalid username")]
         [Required]
         public string sName { get; set; }
     }

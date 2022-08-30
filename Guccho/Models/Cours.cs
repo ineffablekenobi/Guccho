@@ -11,13 +11,29 @@ namespace Guccho.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Cours
     {
         public int cId { get; set; }
+
+        [DisplayName("Course Name")]
+        [DataType(DataType.Text)]
+        [Required]
         public string name { get; set; }
+
+        [DisplayName("Course Code")]
+        [DataType(DataType.Text)]
+        [Required]
         public string code { get; set; }
+
+        [DisplayName("Course Duration")]
+        [DataType(DataType.Text)]
         public string duration { get; set; }
+
+        [DisplayName("Level")]
+        [DataType(DataType.Text)]
         public string level { get; set; }
     }
 }

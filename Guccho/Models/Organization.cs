@@ -11,7 +11,9 @@ namespace Guccho.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Organization
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,10 +23,29 @@ namespace Guccho.Models
         }
     
         public int oID { get; set; }
+
+        [DisplayName("Organization Name")]
+        [DataType(DataType.Text)]
+        [Required]
         public string name { get; set; }
+
+        [DisplayName("Address")]
+        [DataType(DataType.Text)]
         public string address { get; set; }
+
+        [DisplayName("Phone Number")]
+        [RegularExpression(@"(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$", ErrorMessage = "Enter a valid phone number")]
+        [DataType(DataType.PhoneNumber)]
+        [Required]
         public string phoneNumber { get; set; }
+
+        [RegularExpression(@"[a-z0-9]+@[a-z]+\.[a-z]{2,3}", ErrorMessage = "Enter a valid email")]
+        [DisplayName("Email")]
+        [DataType(DataType.EmailAddress)]
+        [Required]
         public string email { get; set; }
+
+
         public string fk_userName { get; set; }
     
         public virtual Admin Admin { get; set; }

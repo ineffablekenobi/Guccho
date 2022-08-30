@@ -11,7 +11,9 @@ namespace Guccho.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Admin
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +21,32 @@ namespace Guccho.Models
         {
             this.Organizations = new HashSet<Organization>();
         }
-    
+
+        [DisplayName("Full Name")]
+        [RegularExpression(@"^[a-zA-Z ]*$", ErrorMessage = "Must not contain any digit")]
+        [DataType(DataType.Text)]
+        [Required]
         public string name { get; set; }
+
+        [DisplayName("Username")]
+        [RegularExpression(@"^\w[!-}]*$", ErrorMessage = "Invalid username")]
+        [Required]
         public string username { get; set; }
+
+        [DisplayName("Phone Number")]
+        [RegularExpression(@"(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$", ErrorMessage = "Enter a valid phone number")]
+        [DataType(DataType.PhoneNumber)]
+        [Required]
         public string phonenumber { get; set; }
+
+        [DisplayName("Password")]
+        [MinLength(8, ErrorMessage = "Minimum password length must be 8")]
+        [DataType(DataType.Password)]
+        [Required]
         public string password { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [DisplayName("Address")]
         public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
