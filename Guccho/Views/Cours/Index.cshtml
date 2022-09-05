@@ -3,121 +3,126 @@
 @{
 
     ViewBag.Title = "Courses";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_students.cshtml";
     HttpCookie userRole = Request.Cookies["access"];
     string role = userRole != null ? userRole.Value.Split('=')[1] : "undefined";
 
 }
 
 
+<div style="margin-top: 30px; box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -webkit-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -moz-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75);; border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px; " class="container">
+    <h3> Courses for you</h3>
 
-<h3> Courses for you</h3>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.level)
+            </th>
+            <th></th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.level)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-
-    if (ViewBag.cidList.Contains(item.cId))
-    {
-        continue;
-    }
-
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.level)
-        </td>
-        <td>
-
-            @if (role.Equals("student"))
-            {
-                <div>
-                    @Html.ActionLink("Details", "Details", new { id = item.cId }) |
-                    @Html.ActionLink("Enroll", "Enroll", "Students", new { id = item.cId }, null)
-                </div>
-            }
-            else
-            {
-                <div>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.cId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.cId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.cId })
-                </div>
-
-            }
-        </td>
-    </tr>
-}
-
-</table>
-
-<h3>Your Courses</h3>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.level)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-
-        if (!ViewBag.cidList.Contains(item.cId))
+        @foreach (var item in Model)
         {
-            continue;
+
+            if (ViewBag.cidList.Contains(item.cId))
+            {
+                continue;
+            }
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.level)
+                </td>
+                <td>
+
+                    @if (role.Equals("student"))
+                    {
+                        <div>
+                            @Html.ActionLink("Details", "Details", new { id = item.cId }) |
+                            @Html.ActionLink("Enroll", "Enroll", "Students", new { id = item.cId }, null)
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.cId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.cId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.cId })
+                        </div>
+
+                    }
+                </td>
+            </tr>
         }
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.level)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.cId })
-            </td>
-        </tr>
-    }
+    </table>
+    </div>
+<div style="margin-top: 60px; box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -webkit-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -moz-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75);; border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px; " class="container">
 
-</table>
+    <h3>Your Courses</h3>
+
+    <table class="table">
+        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.level)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            if (!ViewBag.cidList.Contains(item.cId))
+            {
+                continue;
+            }
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.level)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.cId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

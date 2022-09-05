@@ -2,50 +2,51 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_students.cshtml";
 }
+<div style="padding-left: 100px; padding-top: 50px; padding-right: 50px; box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); -webkit-box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); -moz-box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px; margin-top:15px;padding-bottom:30px;" ;class="container">
+    <h2>Details Of The</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Course</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
 
-<div>
-    <h4>Cours</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.code)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.code)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.code)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.code)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.duration)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.duration)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.duration)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.duration)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.level)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.level)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.level)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.level)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.cId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>

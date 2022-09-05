@@ -56,7 +56,7 @@ namespace Guccho.Controllers
             {
                 db.Students.Add(student);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SignIn");
             }
 
             return View(student);
