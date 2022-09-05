@@ -1,5 +1,20 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    HttpCookie userRole = Request.Cookies["access"];
+    string role = userRole != null ? userRole.Value.Split('=')[1] : "undefined";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (role.Equals("admin"))
+    {
+        Layout = "~/Views/Shared/_Layout_admin.cshtml";
+    }
+    else if(role.Equals("student"))
+    {
+        Layout = "~/Views/Shared/_Layout_students.cshtml";
+
+    }
+
+
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>

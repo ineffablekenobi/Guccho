@@ -141,7 +141,7 @@ h3, .h3 {
     font-size: 1.75rem;
   }
     h3:hover {
-        background-color: #333;
+        background-color: dimgray;
     }
 }
 

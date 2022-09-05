@@ -4,40 +4,42 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout_admin.cshtml";
 }
+<div style="width:700px;padding-left: 100px; padding-top: 50px; padding-right: 50px;padding-bottom:50px; box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); -webkit-box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); -moz-box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;margin-top:15px; " class="container">
 
-<h2>Details</h2>
+    <h2>Details</h2>
 
-<div>
-    <h4>Admin</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+    <div>
+        
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.phonenumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.phonenumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.phonenumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.phonenumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.username }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.username }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>

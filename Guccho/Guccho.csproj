@@ -287,6 +287,8 @@
     <Content Include="Views\Organizations\Index.cshtml" />
     <Content Include="Views\Students\SignIn.cshtml" />
     <Content Include="Views\Students\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_Layout_admin.cshtml" />
+    <Content Include="Views\Shared\_Layout_students.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

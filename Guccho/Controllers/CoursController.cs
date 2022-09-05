@@ -73,6 +73,7 @@ namespace Guccho.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(cours);
         }
 

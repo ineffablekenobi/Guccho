@@ -75,6 +75,9 @@
 
     </table>
     </div>
+@if (!role.Equals("admin"))
+{
+
 <div style="margin-top: 60px; box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -webkit-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -moz-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75);; border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px; " class="container">
 
     <h3>Your Courses</h3>
@@ -126,3 +129,4 @@
 
     </table>
     </div>
+}

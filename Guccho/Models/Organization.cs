@@ -21,7 +21,7 @@ namespace Guccho.Models
         {
             this.Branches = new HashSet<Branch>();
         }
-    
+        [DisplayName("Organization")]
         public int oID { get; set; }
 
         [DisplayName("Organization Name")]

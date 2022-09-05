@@ -4,106 +4,112 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Layout_admin.cshtml";
 }
+<div style="margin-left:0px;height: 60px; margin-top: 20px; box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -webkit-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -moz-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75);; border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px; " class="container">
 
-<h2 class="text-center text-success">Dashboard</h2>
-
-<div>
-    <h4>Admin</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.phonenumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.phonenumber)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-    </dl>
+    <h2 class="text-center text-success">Welcome</h2>
 </div>
+<div style="margin-left:0px;margin-top: 30px; box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -webkit-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -moz-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75);; border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;padding-left:30px;padding-bottom:20px;" class="container">
+
+    <div>
+        <h4>Admin</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.phonenumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.phonenumber)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+        </dl>
+    </div>
 
 
 
-<p class="text-capitalize text-center">
-    <b>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.username })
-    </b>
-</p>
+    <p style="padding-right:1250px;" class="text-capitalize text-center">
+        <b>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.username })
+        </b>
+    </p>
+</div>
+<div style=" margin-top: 30px; box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -webkit-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75); -moz-box-shadow: 3px 6px 9px -6px rgba(0,0,0,0.75);; border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;padding-left:30px;padding-bottom:20px;" class="container">
 
-<h2 class="text-center py-5 text-success">Organizations</h2>
+    <h2 class="text-center py-5 text-success">Organizations</h2>
 
-<table class="table pd-5">
+    <table class="table pd-5">
 
-    <tr>
-        <th>
-            Organizations Name
-        </th>
-        <th>
-            Organization Address
-        </th>
-        <th>
-            Organization PhoneNumber
-        </th>
-        <th>
-            Organization Mail
-        </th>
-        <th>
-            Organization admin
-        </th>
-        <th></th>
-    </tr>
-
-
-    @foreach (var item in Model.Organizations)
-    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Admin.name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "Organizations", new { id = item.oID }, null) |
-                @Html.ActionLink("Details", "Details", "Organizations", new { id = item.oID }, null) |
-                @Html.ActionLink("Delete", "Delete", "Organizations", new { id = item.oID },null)
-            </td>
+            <th>
+                Organizations Name
+            </th>
+            <th>
+                Organization Address
+            </th>
+            <th>
+                Organization PhoneNumber
+            </th>
+            <th>
+                Organization Mail
+            </th>
+            <th>
+                Organization admin
+            </th>
+            <th></th>
         </tr>
-    }
-
-</table>
 
 
-<div>
-    @Html.ActionLink("Create Organization", "Create", "Organizations")
-</div>
+        @foreach (var item in Model.Organizations)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Organizations", new { id = item.oID }, null) |
+                    @Html.ActionLink("Details", "Details", "Organizations", new { id = item.oID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Organizations", new { id = item.oID }, null)
+                </td>
+            </tr>
+        }
 
-<div>
-    @Html.ActionLink("Sign out", "SignOut", "Admins")
+    </table>
+
+
+    <div>
+        @Html.ActionLink("Create Organization", "Create", "Organizations")
+    </div>
+
+    <div>
+        @Html.ActionLink("Sign out", "SignOut", "Admins")
+    </div>
 </div>

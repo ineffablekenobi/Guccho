@@ -20,23 +20,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" @Html.ActionLink("About", "About", "Home")>About</a>
+                        <a style="padding-left:20px;padding-top:20px;"class="nav-link active" aria-current="page" @Html.ActionLink("About", "About", "Home")>About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" @Html.ActionLink("Contact", "Contact", "Home")>Contact</a>
+                        <a style="padding-left:20px;padding-top:20px;"class="nav-link" @Html.ActionLink("Contact", "Contact", "Home")>Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" @Html.ActionLink("See available Courses", "Index", "Cours")>See available Courses</a>
+                        <a style="padding-left:20px;padding-top:20px;"class="nav-link" @Html.ActionLink("Available Courses", "Index", "Cours")>See available Courses</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" @Html.ActionLink("Sign out", "SignOut", "Students")>Sign Out</a>
-                    </li>
+                    
 
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
+                
             </div>
         </div>
     </nav>

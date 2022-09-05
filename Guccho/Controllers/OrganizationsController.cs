@@ -40,6 +40,7 @@ namespace Guccho.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(organization);
         }
 
@@ -63,7 +64,24 @@ namespace Guccho.Controllers
             {
                 db.Organizations.Add(organization);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                HttpCookie access = Request.Cookies["access"];
+                string role = access != null ? access.Value.Split('=')[1] : "undefined";
+
+                if (!role.Equals("undefined"))
+                {
+                    if (role.Equals("admin"))
+                    {
+                        return RedirectToAction("SignIn", "Admins");
+                    }
+                    else
+                    {
+                        return RedirectToAction("SignIn", "Students");
+                    }
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
             }
 
             ViewBag.fk_userName = new SelectList(db.Admins, "username", "name", organization.fk_userName);
@@ -106,7 +124,24 @@ namespace Guccho.Controllers
             {
                 db.Entry(organization).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                HttpCookie access = Request.Cookies["access"];
+                string role = access != null ? access.Value.Split('=')[1] : "undefined";
+
+                if (!role.Equals("undefined"))
+                {
+                    if (role.Equals("admin"))
+                    {
+                        return RedirectToAction("SignIn", "Admins");
+                    }
+                    else
+                    {
+                        return RedirectToAction("SignIn", "Students");
+                    }
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
             }
             ViewBag.fk_userName = new SelectList(db.Admins, "username", "name", organization.fk_userName);
             return View(organization);
@@ -142,7 +177,24 @@ namespace Guccho.Controllers
             Organization organization = db.Organizations.Find(id);
             db.Organizations.Remove(organization);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            HttpCookie access = Request.Cookies["access"];
+            string role = access != null ? access.Value.Split('=')[1] : "undefined";
+
+            if (!role.Equals("undefined"))
+            {
+                if (role.Equals("admin"))
+                {
+                    return RedirectToAction("SignIn", "Admins");
+                }
+                else
+                {
+                    return RedirectToAction("SignIn", "Students");
+                }
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         protected override void Dispose(bool disposing)

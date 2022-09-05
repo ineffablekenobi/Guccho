@@ -4,64 +4,66 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div style="padding-bottom:20px;width:800px;padding-left: 100px; padding-top: 50px; padding-right: 50px; box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); -webkit-box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); -moz-box-shadow: -1px 0px 44px -3px rgba(0,0,0,0.75); border-radius: 10px 10px 10px 10px; -webkit-border-radius: 10px 10px 10px 10px; -moz-border-radius: 10px 10px 10px 10px;margin-top:15px; " class="container">
 
-<h2>Welcome to @Model.name</h2>
+    <h2>Welcome to @Model.name</h2>
 
-<div>
-    <h4>Organization</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+    <div>
+        <h4>Organization</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.address)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.phoneNumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.phoneNumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.phoneNumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.phoneNumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.email)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.email)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Admin.name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Admin.name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Admin.name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Admin.name)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit this organization", "Edit", new { id = Model.oID })
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit this organization", "Edit", new { id = Model.oID })
+    </p>
 
-<p>
-    @Html.ActionLink("Branches", "Index", "Branches", new { id = Model.oID }, null)
-</p>
+    <p>
+        @Html.ActionLink("Branches", "Index", "Branches", new { id = Model.oID }, null)
+    </p>
 
-<div>
-    @Html.ActionLink("Create Branch", "Create", "Branches")
-</div>
+    <div>
+        @Html.ActionLink("Create Branch", "Create", "Branches")
+    </div>
+    </div>
 

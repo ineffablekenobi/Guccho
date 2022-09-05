@@ -46,7 +46,13 @@
         </dl>
     </div>
     <p>
-        
+
         @Html.ActionLink("Back to List", "Index")
     </p>
-    </div>
+
+    <p>
+
+        @Html.ActionLink("Students under the course", "Index", "Students",  new { id = Model.cId } )
+    </p>
+
+</div>

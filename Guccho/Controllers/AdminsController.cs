@@ -52,7 +52,7 @@ namespace Guccho.Controllers
             {
                 db.Admins.Add(admin);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SignIn");
             }
 
             return View(admin);
@@ -84,7 +84,7 @@ namespace Guccho.Controllers
             {
                 db.Entry(admin).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SignIn");
             }
             return View(admin);
         }
@@ -112,7 +112,7 @@ namespace Guccho.Controllers
             Admin admin = db.Admins.Find(id);
             db.Admins.Remove(admin);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("SignIn");
         }
 
         public ActionResult SignIn()
@@ -168,10 +168,15 @@ namespace Guccho.Controllers
             return View(result);
         }
 
-       
 
+        [OutputCache(Duration =0)]
         public ActionResult Dashboard(String id)
         {
+            if (!isLoggedIn())
+            {
+                return HttpNotFound();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -216,6 +221,11 @@ namespace Guccho.Controllers
             if (name.Equals("undefined"))
             {
                 return false;
+            }
+
+            if (!name.Equals(admin.username))
+            {
+                return false; 
             }
 
             HttpCookie access = Request.Cookies["access"];

@@ -19,9 +19,46 @@ namespace Guccho.Controllers
 
 
         // GET: Students
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Students.ToList());
+
+            if(id == null)
+            {
+                return HttpNotFound();
+            }
+
+            string query = "SELECT fk_sName from Students_CoursesJOIN where fk_cID = '" + id + "';";
+            List<String> sNamelst = new List<String>();
+            string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                //This "for" iterates through each column of the current row!
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    sNamelst.Add(reader.GetValue(i).ToString());
+                }
+            }
+
+            var allStudents = db.Students.ToList();
+            List<Student> students = new List<Student>();
+            foreach(var item in sNamelst)
+            {
+                foreach(var student in allStudents)
+                {
+                    if (student.sName.Equals(item))
+                    {
+                        students.Add(student);
+                    }
+                }
+            }
+
+            return View(students);
         }
 
         // GET: Students/Details/5
@@ -88,7 +125,7 @@ namespace Guccho.Controllers
             {
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SignIn");
             }
             return View(student);
         }
@@ -174,9 +211,15 @@ namespace Guccho.Controllers
         }
 
 
-
+        [OutputCache(Duration =0)]
         public ActionResult Dashboard(String id)
         {
+
+            if (!isLoggedIn())
+            {
+                return HttpNotFound();
+            }
+
             // many to many
             if (id == null)
             {
